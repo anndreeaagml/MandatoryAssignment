@@ -1,4 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+compile 'com.squareup.retrofit2:retrofit:2.1.0'
+
+// JSON Parsing
+compile 'com.google.code.gson:gson:2.6.1'
+compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 buildscript {
     repositories {
         google()
