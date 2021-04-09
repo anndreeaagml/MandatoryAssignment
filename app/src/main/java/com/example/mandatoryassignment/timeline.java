@@ -26,7 +26,7 @@ public class timeline extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Twister");
-        getandshowallposts();
+        getAndShowPosts();
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,11 +36,11 @@ public class timeline extends AppCompatActivity {
             }
         });
     }
-    public void getandshowallposts()
+    public void getAndShowPosts()
     {
-        MessageService mess= ApiUtils.getBookStoreService();
-        Call<List<Message>> getallMessagesCall= mess.getAllMessages();
-        getallMessagesCall.enqueue(new Callback<List<Message>>() {
+        MessageService mess= ApiUtils.getMessageService();
+        Call<List<Message>> getAllMessagesCall= mess.getAllMessages();
+        getAllMessagesCall.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 if (response.isSuccessful()) {
