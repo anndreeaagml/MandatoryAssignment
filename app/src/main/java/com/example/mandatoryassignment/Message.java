@@ -8,16 +8,17 @@ import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 public class Message implements Serializable {
-    @SerializedName("Id")
+    //fuck java
+    @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("Content")
+    @SerializedName("content")
     @Expose
     private String content;
-    @SerializedName("User")
+    @SerializedName("user")
     @Expose
     private String user;
-    @SerializedName("TotalComments")
+    @SerializedName("totalComments")
     @Expose
     private Integer totalComments;
     public Message(){}
