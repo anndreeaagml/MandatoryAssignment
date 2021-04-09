@@ -12,24 +12,18 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface MessageService {
-    @GET("books")
-    Call<List<Message>> getAllBooks();
+    @GET("Messages")
+    Call<List<Message>> getAllMessages();
 
-    @GET("books/{bookId}")
-    Call<Message> getBookById(@Path("bookId") int bookId);
+    @GET("Messages/{bookId}")
+    Call<Message> getMessageById(@Path("bookId") int bookId);
 
-    @POST("books")
-    @FormUrlEncoded
-        // I had problems making this work. I used saveBookBody instead
-    Call<Message> saveBook(@Field("Author") String author, @Field("Title") String title,
-                        @Field("Publisher") String publisher, @Field("Price") double price);
 
-    @POST("books")
-    Call<Message> saveBookBody(@Body Book book);
+    @POST("Messages")
+    Call<Message> saveMessageBody(@Body Message message);
 
-    @DELETE("books/{id}")
-    Call<Message> deleteBook(@Path("id") int id);
+    @DELETE("Messages/{id}")
+    Call<Message> deleteMessage(@Path("id") int id);
 
-    @PUT("books/{id}")
-    Call<Message> updateBook(@Path("id") int id, @Body Book book);
+
 }

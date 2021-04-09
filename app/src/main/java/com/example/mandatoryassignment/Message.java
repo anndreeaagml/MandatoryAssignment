@@ -1,3 +1,5 @@
+package com.example.mandatoryassignment;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
