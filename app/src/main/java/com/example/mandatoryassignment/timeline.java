@@ -18,7 +18,8 @@ public class timeline extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Twister");
+        setTitle("Twister");
+        getandshowallposts();
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,5 +28,9 @@ public class timeline extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+    public void getandshowallposts()
+    {
+
     }
 }
