@@ -56,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) {
-
+        Intent gotoFeed= new Intent(this, timeline.class);
+        gotoFeed.putExtra("EMAIL",user.getEmail());
+        startActivity(gotoFeed);
     }
 
     @Override
@@ -64,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
     }
 }
 
