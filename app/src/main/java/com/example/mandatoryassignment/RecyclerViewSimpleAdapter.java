@@ -44,6 +44,7 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
                         ViewGroup.LayoutParams.WRAP_CONTENT);
         //main container
         LinearLayout layout = new LinearLayout(context);
+        layout.setLayoutParams(params);
         layout.setOrientation(LinearLayout.VERTICAL);
         //Comment itself
         LinearLayout commentSection = new LinearLayout(context);
