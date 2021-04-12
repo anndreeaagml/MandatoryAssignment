@@ -1,5 +1,6 @@
 package com.example.mandatoryassignment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -7,6 +8,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.View;
@@ -45,6 +48,7 @@ public class timeline extends AppCompatActivity {
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 if (response.isSuccessful()) {
                     List<Message> allMessages= response.body();
+                    populateRecyclerView(allMessages);
                     Log.d("banana", allMessages.toString());
                 }
                 else {
@@ -60,4 +64,20 @@ public class timeline extends AppCompatActivity {
         });
 
     }
+
+    private void populateRecyclerView(List<Message> allMessages) {
+        RecyclerView recyclerView = findViewById(R.id.mainRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerViewSimpleAdapter<Message> adapter = new RecyclerViewSimpleAdapter<>(allMessages);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener((view, position, item) -> {
+            Message msg = (Message) item;
+            Log.d("banana", item.toString());
+           // Intent intent = new Intent(MainActivity.this, SingleBookActivity.class);
+          //  intent.putExtra(SingleBookActivity.BOOK, book);
+          //  Log.d(LOG_TAG, "putExtra " + book.toString());
+         //  startActivity(intent);
+        });
+    }
+
 }
