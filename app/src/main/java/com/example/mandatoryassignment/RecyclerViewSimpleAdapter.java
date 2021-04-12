@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,6 +18,11 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
     private final List<T> data;
     private OnItemClickListener<T> onItemClickListener;
     private final int viewId = View.generateViewId();
+    private final int userId = View.generateViewId();
+    private final int commentId = View.generateViewId();
+    private final int comComId = View.generateViewId();
+    private final int newComId = View.generateViewId();
+    private final int addComId = View.generateViewId();
 
     public RecyclerViewSimpleAdapter(List<T> data) {
         this.data = data;
@@ -36,21 +42,74 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
         ViewGroup.LayoutParams params =
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
+        //main container
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
+        //Comment itself
+        LinearLayout commentSection = new LinearLayout(context);
+        commentSection.setOrientation(LinearLayout.VERTICAL);
+        commentSection.setLayoutParams(params);
+
+        TextView username = new TextView(context);
+        username.setId(userId);
+        username.setLayoutParams(params);
+        TextView userComment = new TextView(context);
+        userComment.setId(commentId);
+        userComment.setLayoutParams(params);
+        TextView commentComments = new TextView(context);
+        commentComments.setId(comComId);
+        commentComments.setLayoutParams(params);
+
+        commentSection.addView(username);
+        commentSection.addView(userComment);
+        commentSection.addView(commentComments);
+
+        //Add comment part
+        LinearLayout addCommentLayout = new LinearLayout(context);
+        addCommentLayout.setOrientation(LinearLayout.HORIZONTAL);
+        addCommentLayout.setLayoutParams(params);
+
+        TextView newComment = new TextView(context);
+        newComment.setId(newComId);
+        newComment.setLayoutParams(params);
+        newComment.setLayoutParams( new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,1f));
+        Button addCmtBtn = new Button(context);
+        addCmtBtn.setId(addComId);
+        addCmtBtn.setLayoutParams( new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,2f));
+
+
+        addCommentLayout.addView(newComment);
+        addCommentLayout.addView(addCmtBtn);
+
+        //
+        layout.addView(commentSection);
+        layout.addView(addCommentLayout);
+
+
+
+        /*
         TextView textView = new TextView(context);
         textView.setId(viewId);
         textView.setLayoutParams(params);
-        layout.addView(textView);
-        Log.d("banana", textView.toString());
+        layout.addView(textView);*/
+
+        layout.setId(viewId);
+
+       // Log.d("banana", textView.toString());
         return layout;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        T dataItem = data.get(position);
+        Message dataItem = (Message) data.get(position);
         Log.d(LOG_TAG, "onBindViewHolder " + data.toString());
-        holder.view.setText(dataItem.toString());
+        //holder.view.setText(dataItem.getUser());
+        ((TextView)holder.itemView.findViewById(userId)).setText(dataItem.getUser());
+        ((TextView)holder.itemView.findViewById(commentId)).setText(dataItem.getContent());
+        ((TextView)holder.itemView.findViewById(comComId)).setText(dataItem.getTotalComments().toString());
+        ((TextView)holder.itemView.findViewById(newComId)).setText("Yo, I'm here");
         Log.d(LOG_TAG, "onBindViewHolder called " + position);
     }
 
@@ -70,7 +129,7 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        final TextView view;
+        final LinearLayout view;
 
         MyViewHolder(@NonNull final View itemView) {
             super(itemView);
