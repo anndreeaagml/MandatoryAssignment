@@ -10,7 +10,7 @@ public class ApiUtils {
     public static MessageService getMessageService() {
         return RetrofitClient.getClient(BASE_URL).create(MessageService.class);
     }
-    public static CommentsService getCommentsService( int idOfTheMessage) {
-        return RetrofitClient.getClient((String)(BASE_URL+"Messages/" +idOfTheMessage+"/")).create(CommentsService.class);
+    public static CommentsService getCommentsService() {
+        return RetrofitClient.getClient(BASE_URL).create(CommentsService.class);
     }
 }

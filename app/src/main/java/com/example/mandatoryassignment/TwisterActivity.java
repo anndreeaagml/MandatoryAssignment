@@ -36,8 +36,8 @@ public class TwisterActivity extends AppCompatActivity {
         Jimmy.setText(message.getUser());
     }
     public void getAndShowComments(Integer id) {
-        CommentsService mess = ApiUtils.getCommentsService(id);
-        Call<List<Comment>> getAllCommentsCall = mess.getAllComments();
+        CommentsService mess = ApiUtils.getCommentsService();
+        Call<List<Comment>> getAllCommentsCall = mess.getAllComments(id);
         getAllCommentsCall.enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {

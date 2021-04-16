@@ -10,8 +10,8 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface CommentsService {
-    @GET("comments")
-    Call<List<Comment>> getAllComments();
+    @GET("Messages/{postId}/comments")
+    Call<List<Comment>> getAllComments(@Path("postId") int postId);
 
     @GET("comments/{commentId}")
     Call<Comment> getCommentById(@Path("commentId") int commentId);
