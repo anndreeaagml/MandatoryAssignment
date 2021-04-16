@@ -3,7 +3,7 @@ package com.example.mandatoryassignment;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
-
+import android.app.ActivityOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.io.Serializable;
 import java.util.List;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -128,14 +129,10 @@ public class TimelineActivity extends AppCompatActivity {
         adapter.setOnItemClickListener((view, position, item) -> {
             Message msg = (Message) item;
             Log.d("banana", item.toString());
-            int postId = ((RecyclerViewSimpleAdapter)recyclerView.getAdapter()).getItem(position).getId();
+            Message mess = ((RecyclerViewSimpleAdapter)recyclerView.getAdapter()).getItem(position);
             Intent GoToPost = new Intent(this, TwisterActivity.class);
-            GoToPost.putExtra("PostId", postId);
+            GoToPost.putExtra("Message", (Serializable)  mess);
             startActivity(GoToPost);
-            // Intent intent = new Intent(MainActivity.this, SingleBookActivity.class);
-            //  intent.putExtra(SingleBookActivity.BOOK, book);
-            //  Log.d(LOG_TAG, "putExtra " + book.toString());
-            //  startActivity(intent);
         });
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {

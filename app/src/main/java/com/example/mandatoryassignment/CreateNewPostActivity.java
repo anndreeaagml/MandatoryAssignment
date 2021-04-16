@@ -58,6 +58,5 @@ public class CreateNewPostActivity extends AppCompatActivity {
 
     public void Cancel(View view) {
         finish();
-
     }
 }

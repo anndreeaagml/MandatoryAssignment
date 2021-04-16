@@ -1,5 +1,4 @@
 package com.example.mandatoryassignment;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,27 +6,28 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-public class Message implements Serializable {
+public class Comment implements Serializable{
     @SerializedName("id")
     @Expose
     private Integer id;
+    @SerializedName("messageId")
+    @Expose
+    private Integer messageId;
     @SerializedName("content")
     @Expose
     private String content;
     @SerializedName("user")
     @Expose
     private String user;
-    @SerializedName("totalComments")
-    @Expose
-    private Integer totalComments;
-    public Message(){}
+    public Comment(){}
 
-    public Message(Integer id, String content, String user, Integer totalComments)
+    public Comment(Integer id, Integer messageId, String content, String user)
     {
         this.id= id;
+        this.messageId=messageId;
         this.content=content;
         this.user=user;
-        this.totalComments=totalComments;
+
     }
 
 
@@ -56,18 +56,16 @@ public class Message implements Serializable {
         this.user = user;
     }
 
-    public Integer getTotalComments() {
-        return totalComments;
+    public Integer getMessageId() {
+        return messageId;
     }
 
-    public void setTotalComments(Integer totalComments) {
-        this.totalComments = totalComments;
-    }
+    public void setMessageId(Integer totalComments) { this.messageId = messageId; }
 
     @NonNull
     @Override
     public String toString() {
-        return id + ": " + content + " " + user + ", " + totalComments;
+        return id + ": " +messageId+" " + content + " " + user + ", " ;
     }
 
 
