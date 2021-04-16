@@ -11,9 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MandatoryAssignment">
-        <activity android:name=".CreateNewPostActivity"></activity>
+        <activity android:name=".TwisterActivity"></activity>
+        <activity android:name=".CreateNewPostActivity" />
         <activity
-            android:name=".timeline"
+            android:name=".TimelineActivity"
             android:label="@string/title_activity_timeline"
             android:theme="@style/Theme.MandatoryAssignment.NoActionBar" />
         <activity android:name=".MainActivity">

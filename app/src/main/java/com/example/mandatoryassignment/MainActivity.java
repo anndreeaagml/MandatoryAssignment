@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) {
-        Intent gotoFeed= new Intent(this, timeline.class);
+        Intent gotoFeed= new Intent(this, TimelineActivity.class);
         gotoFeed.putExtra("EMAIL",user.getEmail());
         startActivity(gotoFeed);
     }

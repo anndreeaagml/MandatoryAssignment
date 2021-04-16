@@ -71,6 +71,7 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
         commentSection.addView(userComment);
         commentSection.addView(commentComments);
 
+
         //Add comment part
         LinearLayout addCommentLayout = new LinearLayout(context);
         addCommentLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -92,7 +93,7 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
 
         //
         layout.addView(commentSection);
-        layout.addView(addCommentLayout);
+        //layout.addView(addCommentLayout);
 
 
 
@@ -115,8 +116,8 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
         //holder.view.setText(dataItem.getUser());
         ((TextView)holder.itemView.findViewById(userId)).setText(dataItem.getUser());
         ((TextView)holder.itemView.findViewById(commentId)).setText(dataItem.getContent());
-        ((TextView)holder.itemView.findViewById(comComId)).setText(dataItem.getTotalComments().toString());
-        ((TextView)holder.itemView.findViewById(newComId)).setText("Yo, I'm here");
+        ((TextView)holder.itemView.findViewById(comComId)).setText("Comments: " +dataItem.getTotalComments().toString());
+        //((TextView)holder.itemView.findViewById(newComId)).setText("Yo, I'm here");
         Log.d(LOG_TAG, "onBindViewHolder called " + position);
     }
 
@@ -125,6 +126,11 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
         int count = data.size();
         Log.d(LOG_TAG, "getItemCount called: " + count);
         return count;
+    }
+
+    public Message getItem(int position)
+    {
+        return (Message) data.get(position);
     }
 
     void setOnItemClickListener(OnItemClickListener<T> itemClickListener) {

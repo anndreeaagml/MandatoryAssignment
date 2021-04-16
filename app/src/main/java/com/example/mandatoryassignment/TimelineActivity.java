@@ -5,30 +5,29 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.List;
 
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class timeline extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,36 +41,11 @@ public class timeline extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go_to_new_post = new Intent(timeline.this, CreateNewPostActivity.class);
+                Intent go_to_new_post = new Intent(TimelineActivity.this, CreateNewPostActivity.class);
                 go_to_new_post.putExtra("username", FirebaseAuth.getInstance().getCurrentUser().getEmail());
                 startActivity(go_to_new_post);
             }
         });
-
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView mainRecycleView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                final int position = viewHolder.getAdapterPosition();
-                if (position >= 0) {
-
-                    /*String user = commentRecyclerViewAdapter.getItem(position).getUser();
-                    if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals(user)) {
-                        //deleteComment(position);*/
-                    Log.d("banana", "pressed");
-                    }
-                }
-            };
-
-
-        };
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(mainRecycleView);
     }
 
     @Override
@@ -103,6 +77,29 @@ public class timeline extends AppCompatActivity {
         });
     }
 
+    private void deleteComment(int position) {
+        MessageService mess = ApiUtils.getMessageService();
+        Call<Message> deleteMessage = mess.deleteMessage(position);
+        deleteMessage.enqueue(new Callback<Message>() {
+            @Override
+            public void onResponse(Call<Message> call, Response<Message> response) {
+                if (response.isSuccessful()) {
+                    Message delMsg = response.body();
+                    getAndShowPosts();
+                    Log.d("banana","Deleted " + delMsg.toString());
+                } else {
+                    String message = "Problem " + response.code() + " " + response.message();
+                    Log.d("banana", message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Message> call, Throwable t) {
+                Log.e("banana", t.getMessage());
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_timeline, menu);
@@ -124,6 +121,7 @@ public class timeline extends AppCompatActivity {
 
     private void populateRecyclerView(List<Message> allMessages) {
         RecyclerView recyclerView = findViewById(R.id.mainRecyclerView);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         RecyclerViewSimpleAdapter<Message> adapter = new RecyclerViewSimpleAdapter<>(allMessages);
         recyclerView.setAdapter(adapter);
@@ -135,6 +133,49 @@ public class timeline extends AppCompatActivity {
             //  Log.d(LOG_TAG, "putExtra " + book.toString());
             //  startActivity(intent);
         });
+
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                // Row is swiped from recycler view
+                final int position = viewHolder.getAdapterPosition();
+                if (position >= 0) {
+                    int id = ((RecyclerViewSimpleAdapter)recyclerView.getAdapter()).getItem(position).getId();
+                    String user = ((RecyclerViewSimpleAdapter)recyclerView.getAdapter()).getItem(position).getUser();
+                    if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(user)) {
+                        deleteComment(id);
+                    }
+                }
+                // remove it from adapter
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                // view the background view
+                final int position = viewHolder.getAdapterPosition();
+                if (position >= 0) {
+                    //String user = recyclerView.getItem(position).getUser();
+
+                    new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                            .addSwipeLeftBackgroundColor(ContextCompat.getColor(TimelineActivity.this, R.color.design_default_color_error))
+                            .addSwipeLeftActionIcon(R.drawable.googleg_disabled_color_18)
+                            .create()
+                            .decorate();
+                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+
+                }
+            }
+        };
+        // attaching the touch helper to recycler view
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
+
 
     }
 }
