@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.List;
@@ -21,7 +24,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class timeline extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,15 +58,30 @@ public class timeline extends AppCompatActivity {
                     Log.d("banana", message);
                 }
             }
-
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
                 Log.e("banana", t.getMessage());
             }
         });
-
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_timeline, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sign_out_button:
+                //Sign out here TODO
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                return true; // true: menu processing done, no further actions
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     private void populateRecyclerView(List<Message> allMessages) {
         RecyclerView recyclerView = findViewById(R.id.mainRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -79,5 +96,4 @@ public class timeline extends AppCompatActivity {
          //  startActivity(intent);
         });
     }
-
 }
