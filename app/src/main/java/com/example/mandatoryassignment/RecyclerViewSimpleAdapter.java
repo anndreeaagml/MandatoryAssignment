@@ -1,6 +1,7 @@
 package com.example.mandatoryassignment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -154,6 +157,7 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
         public void onClick(View view) {
             if (onItemClickListener != null) {
                 onItemClickListener.onItemClick(view, getAdapterPosition(), data.get(getAdapterPosition()));
+
             }
         }
     }

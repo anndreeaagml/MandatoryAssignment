@@ -128,6 +128,10 @@ public class TimelineActivity extends AppCompatActivity {
         adapter.setOnItemClickListener((view, position, item) -> {
             Message msg = (Message) item;
             Log.d("banana", item.toString());
+            int postId = ((RecyclerViewSimpleAdapter)recyclerView.getAdapter()).getItem(position).getId();
+            Intent GoToPost = new Intent(this, TwisterActivity.class);
+            GoToPost.putExtra("PostId", postId);
+            startActivity(GoToPost);
             // Intent intent = new Intent(MainActivity.this, SingleBookActivity.class);
             //  intent.putExtra(SingleBookActivity.BOOK, book);
             //  Log.d(LOG_TAG, "putExtra " + book.toString());
