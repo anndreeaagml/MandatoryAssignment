@@ -42,6 +42,14 @@ public class timeline extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        getAndShowPosts();
+    }
+
     public void getAndShowPosts()
     {
         MessageService mess= ApiUtils.getMessageService();
