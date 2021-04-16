@@ -36,8 +36,9 @@ public class timeline extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               Intent go_to_new_post= new Intent(timeline.this, CreateNewPostActivity.class);
+               go_to_new_post.putExtra("username", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+               startActivity(go_to_new_post);
             }
         });
     }
