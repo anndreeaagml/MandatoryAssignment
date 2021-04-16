@@ -1,20 +1,25 @@
 package com.example.mandatoryassignment;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.List;
@@ -24,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class timeline extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,43 +42,67 @@ public class timeline extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent go_to_new_post= new Intent(timeline.this, CreateNewPostActivity.class);
-               go_to_new_post.putExtra("username", FirebaseAuth.getInstance().getCurrentUser().getEmail());
-               startActivity(go_to_new_post);
+                Intent go_to_new_post = new Intent(timeline.this, CreateNewPostActivity.class);
+                go_to_new_post.putExtra("username", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                startActivity(go_to_new_post);
             }
         });
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView mainRecycleView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                final int position = viewHolder.getAdapterPosition();
+                if (position >= 0) {
+
+                    /*String user = commentRecyclerViewAdapter.getItem(position).getUser();
+                    if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals(user)) {
+                        //deleteComment(position);*/
+                    Log.d("banana", "pressed");
+                    }
+                }
+            };
+
+
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(mainRecycleView);
     }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         getAndShowPosts();
     }
 
-    public void getAndShowPosts()
-    {
-        MessageService mess= ApiUtils.getMessageService();
-        Call<List<Message>> getAllMessagesCall= mess.getAllMessages();
+    public void getAndShowPosts() {
+        MessageService mess = ApiUtils.getMessageService();
+        Call<List<Message>> getAllMessagesCall = mess.getAllMessages();
         getAllMessagesCall.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 if (response.isSuccessful()) {
-                    List<Message> allMessages= response.body();
+                    List<Message> allMessages = response.body();
                     populateRecyclerView(allMessages);
                     Log.d("banana", allMessages.toString());
-                }
-                else {
+                } else {
                     String message = "Problem " + response.code() + " " + response.message();
                     Log.d("banana", message);
                 }
             }
+
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
                 Log.e("banana", t.getMessage());
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_timeline, menu);
@@ -91,6 +121,7 @@ public class timeline extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     private void populateRecyclerView(List<Message> allMessages) {
         RecyclerView recyclerView = findViewById(R.id.mainRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -99,10 +130,11 @@ public class timeline extends AppCompatActivity {
         adapter.setOnItemClickListener((view, position, item) -> {
             Message msg = (Message) item;
             Log.d("banana", item.toString());
-           // Intent intent = new Intent(MainActivity.this, SingleBookActivity.class);
-          //  intent.putExtra(SingleBookActivity.BOOK, book);
-          //  Log.d(LOG_TAG, "putExtra " + book.toString());
-         //  startActivity(intent);
+            // Intent intent = new Intent(MainActivity.this, SingleBookActivity.class);
+            //  intent.putExtra(SingleBookActivity.BOOK, book);
+            //  Log.d(LOG_TAG, "putExtra " + book.toString());
+            //  startActivity(intent);
         });
+
     }
 }
