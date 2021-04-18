@@ -41,7 +41,7 @@ public class TimelineActivity extends AppCompatActivity {
         setTitle("Twister");
         getAndShowPosts();
         FloatingActionButton fab = findViewById(R.id.fab);
-        if (FirebaseAuth.getInstance().getCurrentUser()!=null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             fab.setVisibility(View.VISIBLE);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,7 +117,7 @@ public class TimelineActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.sign_out_button:
                 //Sign out here
-                if (FirebaseAuth.getInstance().getCurrentUser()==null)
+                if (FirebaseAuth.getInstance().getCurrentUser() == null)
                     finish();
                 FirebaseAuth.getInstance().signOut();
                 finish();
@@ -183,7 +183,5 @@ public class TimelineActivity extends AppCompatActivity {
         };
         // attaching the touch helper to recycler view
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-
-
     }
 }
