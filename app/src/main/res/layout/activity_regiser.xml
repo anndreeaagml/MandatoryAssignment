@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    tools:context=".RegisterActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            />
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="wrap_content"
             android:minWidth="300px"
             android:layout_height="wrap_content"
-            android:id="@+id/username"/>
+            android:id="@+id/registerUsername"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,18 +28,28 @@
             android:minWidth="300px"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:id="@+id/password"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log-in"
-            android:onClick="LogIn"/>
+            android:id="@+id/registerPassword"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Repeat Password"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="wrap_content"
+            android:minWidth="300px"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:id="@+id/repeatPassword"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FF0000"
+            android:visibility="gone"
+            android:id="@+id/errorText"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Register"
-            android:clickable="true"
-            android:id="@+id/goToRegister"/>
-
+            android:onClick="Register"/>
     </LinearLayout>
-</androidx.appcompat.widget.LinearLayoutCompat>
+
+</LinearLayout>

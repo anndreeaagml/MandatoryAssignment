@@ -26,6 +26,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         setTitle("Twister");
+        findViewById(R.id.goToRegister).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToRegister = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(goToRegister);
+
+            }
+        });
     }
 
     public void LogIn(View view) {
@@ -33,13 +41,11 @@ public class MainActivity extends AppCompatActivity {
         String username = ((TextInputEditText) findViewById(R.id.username)).getText().toString();
 
         String password = ((TextInputEditText) findViewById(R.id.password)).getText().toString();
-        if (password.isEmpty() || username.isEmpty())
-        {
+        if (password.isEmpty() || username.isEmpty()) {
             //Log.w(TAG, "signInWithEmail:failure", task.getException());
             Toast.makeText(MainActivity.this, "Authentication failed.",
                     Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             mAuth.signInWithEmailAndPassword(username, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -64,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) {
-        Intent gotoFeed= new Intent(this, TimelineActivity.class);
-        gotoFeed.putExtra("EMAIL",user.getEmail());
+        Intent gotoFeed = new Intent(this, TimelineActivity.class);
+        gotoFeed.putExtra("EMAIL", user.getEmail());
         startActivity(gotoFeed);
     }
 
@@ -74,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser!= null)
+        if (currentUser != null)
             updateUI(currentUser);
     }
 }
