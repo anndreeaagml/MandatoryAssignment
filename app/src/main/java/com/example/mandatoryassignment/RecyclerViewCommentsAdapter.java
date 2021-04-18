@@ -66,15 +66,15 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
         TextView userComment = new TextView(context);
         userComment.setId(commentId);
         userComment.setLayoutParams(params);
-        TextView commentComments = new TextView(context);
+        /*TextView commentComments = new TextView(context);
         commentComments.setId(comComId);
         commentComments.setLayoutParams(params);
-
+        */
         commentSection.addView(username);
         commentSection.addView(userComment);
-        commentSection.addView(commentComments);
+        //commentSection.addView(commentComments);
 
-
+    /*
         //Add comment part
         LinearLayout addCommentLayout = new LinearLayout(context);
         addCommentLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -93,7 +93,7 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
 
         addCommentLayout.addView(newComment);
         addCommentLayout.addView(addCmtBtn);
-
+        */
         //
         layout.addView(commentSection);
         //layout.addView(addCommentLayout);
@@ -114,12 +114,12 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewCommentsAdapter.MyViewHolder holder, int position) {
-        Message dataItem = (Message) data.get(position);
+        Comment dataItem = (Comment) data.get(position);
         Log.d(LOG_TAG, "onBindViewHolder " + data.toString());
         //holder.view.setText(dataItem.getUser());
         ((TextView) holder.itemView.findViewById(userId)).setText(dataItem.getUser());
         ((TextView) holder.itemView.findViewById(commentId)).setText(dataItem.getContent());
-        ((TextView) holder.itemView.findViewById(comComId)).setText("Comments: " + dataItem.getTotalComments().toString());
+       // ((TextView) holder.itemView.findViewById(comComId)).setText("Comments: " + dataItem.getTotalComments().toString());
         //((TextView)holder.itemView.findViewById(newComId)).setText("Yo, I'm here");
         Log.d(LOG_TAG, "onBindViewHolder called " + position);
     }
@@ -131,8 +131,8 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
         return count;
     }
 
-    public Message getItem(int position) {
-        return (Message) data.get(position);
+    public Comment getItem(int position) {
+        return (Comment) data.get(position);
     }
 
     void setOnItemClickListener(RecyclerViewCommentsAdapter.OnItemClickListener<T> itemClickListener) {

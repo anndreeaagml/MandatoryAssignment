@@ -13,13 +13,9 @@ public interface CommentsService {
     @GET("Messages/{postId}/comments")
     Call<List<Comment>> getAllComments(@Path("postId") int postId);
 
-    @GET("comments/{commentId}")
-    Call<Comment> getCommentById(@Path("commentId") int commentId);
+    @POST("Messages/{postId}/comments")
+    Call<Comment> saveCommentBody(@Path("postId") int postId,@Body Comment comment);
 
-
-    @POST("comments")
-    Call<Comment> saveCommentBody(@Body Comment comment);
-
-    @DELETE("comments/{id}")
-    Call<Comment> deleteMessage(@Path("id") int id);
+    @DELETE("Messages/{postId}/comments/{id}")
+    Call<Comment> deleteComment(@Path("postId") int postId,@Path("id") int id);
 }

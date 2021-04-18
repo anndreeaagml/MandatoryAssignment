@@ -9,10 +9,10 @@ import com.google.gson.annotations.SerializedName;
 public class Comment implements Serializable{
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("messageId")
     @Expose
-    private Integer messageId;
+    private int messageId;
     @SerializedName("content")
     @Expose
     private String content;
@@ -21,7 +21,7 @@ public class Comment implements Serializable{
     private String user;
     public Comment(){}
 
-    public Comment(Integer id, Integer messageId, String content, String user)
+    public Comment(int id, int messageId, String content, String user)
     {
         this.id= id;
         this.messageId=messageId;
@@ -32,11 +32,11 @@ public class Comment implements Serializable{
 
 
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -56,11 +56,11 @@ public class Comment implements Serializable{
         this.user = user;
     }
 
-    public Integer getMessageId() {
+    public int getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(Integer totalComments) { this.messageId = messageId; }
+    public void setMessageId(int messageId) { this.messageId = messageId; }
 
     @NonNull
     @Override
