@@ -66,49 +66,14 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
         TextView userComment = new TextView(context);
         userComment.setId(commentId);
         userComment.setLayoutParams(params);
-        /*TextView commentComments = new TextView(context);
-        commentComments.setId(comComId);
-        commentComments.setLayoutParams(params);
-        */
+
         commentSection.addView(username);
         commentSection.addView(userComment);
-        //commentSection.addView(commentComments);
 
-    /*
-        //Add comment part
-        LinearLayout addCommentLayout = new LinearLayout(context);
-        addCommentLayout.setOrientation(LinearLayout.HORIZONTAL);
-        addCommentLayout.setLayoutParams(params);
-
-        TextView newComment = new TextView(context);
-        newComment.setId(newComId);
-        newComment.setLayoutParams(params);
-        newComment.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
-        Button addCmtBtn = new Button(context);
-        addCmtBtn.setId(addComId);
-        addCmtBtn.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, 2f));
-
-
-        addCommentLayout.addView(newComment);
-        addCommentLayout.addView(addCmtBtn);
-        */
-        //
         layout.addView(commentSection);
-        //layout.addView(addCommentLayout);
-
-
-
-        /*
-        TextView textView = new TextView(context);
-        textView.setId(viewId);
-        textView.setLayoutParams(params);
-        layout.addView(textView);*/
 
         layout.setId(viewId);
 
-        // Log.d("banana", textView.toString());
         return layout;
     }
 
@@ -116,11 +81,8 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
     public void onBindViewHolder(@NonNull RecyclerViewCommentsAdapter.MyViewHolder holder, int position) {
         Comment dataItem = (Comment) data.get(position);
         Log.d(LOG_TAG, "onBindViewHolder " + data.toString());
-        //holder.view.setText(dataItem.getUser());
         ((TextView) holder.itemView.findViewById(userId)).setText(dataItem.getUser());
         ((TextView) holder.itemView.findViewById(commentId)).setText(dataItem.getContent());
-       // ((TextView) holder.itemView.findViewById(comComId)).setText("Comments: " + dataItem.getTotalComments().toString());
-        //((TextView)holder.itemView.findViewById(newComId)).setText("Yo, I'm here");
         Log.d(LOG_TAG, "onBindViewHolder called " + position);
     }
 

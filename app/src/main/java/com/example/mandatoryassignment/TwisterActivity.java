@@ -27,6 +27,7 @@ import retrofit2.Response;
 public class TwisterActivity extends AppCompatActivity {
 
     private int messId;
+    private RecyclerViewCommentsAdapter commentsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +71,9 @@ public class TwisterActivity extends AppCompatActivity {
     private void populateRecyclerView(List<Comment> allComments) {
         RecyclerView recyclerView = findViewById(R.id.listOfComments);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerViewCommentsAdapter<Comment> adapter = new RecyclerViewCommentsAdapter<>(allComments);
-        recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener((view, position, item) -> {
+        commentsAdapter = new RecyclerViewCommentsAdapter<>(allComments);
+        recyclerView.setAdapter(commentsAdapter);
+        commentsAdapter.setOnItemClickListener((view, position, item) -> {
             Comment comm = (Comment) item;
             Log.d("getcomm", item.toString());
             Comment mess = ((RecyclerViewCommentsAdapter) recyclerView.getAdapter()).getItem(position);
@@ -105,14 +106,16 @@ public class TwisterActivity extends AppCompatActivity {
                 // view the background view
                 final int position = viewHolder.getAdapterPosition();
                 if (position >= 0) {
-                    //String user = recyclerView.getItem(position).getUser();
+                    String user = commentsAdapter.getItem(position).getUser();
+                    if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(user)) {
 
-                    new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                            .addSwipeLeftBackgroundColor(ContextCompat.getColor(TwisterActivity.this, R.color.design_default_color_error))
-                            .addSwipeLeftActionIcon(R.drawable.googleg_disabled_color_18)
-                            .create()
-                            .decorate();
-                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                        new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                                .addSwipeLeftBackgroundColor(ContextCompat.getColor(TwisterActivity.this, R.color.design_default_color_error))
+                                .addSwipeLeftActionIcon(R.drawable.googleg_disabled_color_18)
+                                .create()
+                                .decorate();
+                        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                    }
 
 
                 }
@@ -144,8 +147,8 @@ public class TwisterActivity extends AppCompatActivity {
         });
     }
     public void PostComment(View view) {
-
-        String commentText = ((TextInputEditText) findViewById(R.id.newComment)).getText().toString();
+        TextInputEditText input=findViewById(R.id.newComment);
+        String commentText = input.getText().toString();
         CommentsService com= ApiUtils.getCommentsService();
         Comment newComment = new Comment();
         newComment.setContent(commentText);
@@ -161,6 +164,7 @@ public class TwisterActivity extends AppCompatActivity {
                     Comment newComment = response.body();
                     Log.d("banana", newComment.toString());
                     getAndShowComments(messId);
+                    input.getText().clear();
                 }
                 else {
                     String message = "Problem " + response.code() + " " + response.message();

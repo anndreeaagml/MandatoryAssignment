@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.app.ActivityOptions;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -29,6 +30,7 @@ import retrofit2.Response;
 
 public class TimelineActivity extends AppCompatActivity {
 
+    private RecyclerViewSimpleAdapter twisterAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +89,7 @@ public class TimelineActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Message delMsg = response.body();
                     getAndShowPosts();
-                    Log.d("banana","Deleted " + delMsg.toString());
+                    Log.d("banana", "Deleted " + delMsg.toString());
                 } else {
                     String message = "Problem " + response.code() + " " + response.message();
                     Log.d("banana", message);
@@ -111,7 +113,7 @@ public class TimelineActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sign_out_button:
-                //Sign out here TODO
+                //Sign out here
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 return true; // true: menu processing done, no further actions
@@ -124,14 +126,14 @@ public class TimelineActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.mainRecyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerViewSimpleAdapter<Message> adapter = new RecyclerViewSimpleAdapter<>(allMessages);
-        recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener((view, position, item) -> {
+        twisterAdapter = new RecyclerViewSimpleAdapter<>(allMessages);
+        recyclerView.setAdapter(twisterAdapter);
+        twisterAdapter.setOnItemClickListener((view, position, item) -> {
             Message msg = (Message) item;
             Log.d("banana", item.toString());
-            Message mess = ((RecyclerViewSimpleAdapter)recyclerView.getAdapter()).getItem(position);
+            Message mess = ((RecyclerViewSimpleAdapter) recyclerView.getAdapter()).getItem(position);
             Intent GoToPost = new Intent(this, TwisterActivity.class);
-            GoToPost.putExtra("Message", (Serializable)  mess);
+            GoToPost.putExtra("Message", (Serializable) mess);
             startActivity(GoToPost);
         });
 
@@ -146,8 +148,8 @@ public class TimelineActivity extends AppCompatActivity {
                 // Row is swiped from recycler view
                 final int position = viewHolder.getAdapterPosition();
                 if (position >= 0) {
-                    int id = ((RecyclerViewSimpleAdapter)recyclerView.getAdapter()).getItem(position).getId();
-                    String user = ((RecyclerViewSimpleAdapter)recyclerView.getAdapter()).getItem(position).getUser();
+                    int id = ((RecyclerViewSimpleAdapter) recyclerView.getAdapter()).getItem(position).getId();
+                    String user = ((RecyclerViewSimpleAdapter) recyclerView.getAdapter()).getItem(position).getUser();
                     if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(user)) {
                         deleteComment(id);
                     }
@@ -160,22 +162,22 @@ public class TimelineActivity extends AppCompatActivity {
                 // view the background view
                 final int position = viewHolder.getAdapterPosition();
                 if (position >= 0) {
-                    //String user = recyclerView.getItem(position).getUser();
+                    String user = twisterAdapter.getItem(position).getUser();
+                    if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(user)) {
 
-                    new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                            .addSwipeLeftBackgroundColor(ContextCompat.getColor(TimelineActivity.this, R.color.design_default_color_error))
-                            .addSwipeLeftActionIcon(R.drawable.googleg_disabled_color_18)
-                            .create()
-                            .decorate();
-                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-
+                        new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                                .addSwipeLeftBackgroundColor(ContextCompat.getColor(TimelineActivity.this, R.color.design_default_color_error))
+                                .addSwipeLeftActionIcon(R.drawable.googleg_disabled_color_18)
+                                .create()
+                                .decorate();
+                        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                    }
 
                 }
             }
         };
         // attaching the touch helper to recycler view
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-
 
 
     }
