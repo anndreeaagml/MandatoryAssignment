@@ -44,6 +44,10 @@ public class TwisterActivity extends AppCompatActivity {
         messId=message.getId();
         comm.setText(message.getTotalComments() + " Comments");
         Jimmy.setText(message.getUser());
+        if (FirebaseAuth.getInstance().getCurrentUser()!=null)
+        {
+            findViewById(R.id.postComment).setVisibility(View.VISIBLE);
+        }
     }
     public void getAndShowComments(Integer id) {
         CommentsService mess = ApiUtils.getCommentsService();

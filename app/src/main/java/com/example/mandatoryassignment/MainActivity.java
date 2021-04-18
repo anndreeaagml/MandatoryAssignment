@@ -34,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        findViewById(R.id.anonymous).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToTimeline = new Intent(MainActivity.this, TimelineActivity.class);
+                startActivity(goToTimeline);
+            }
+        });
     }
 
     public void LogIn(View view) {

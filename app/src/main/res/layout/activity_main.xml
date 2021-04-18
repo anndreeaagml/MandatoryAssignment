@@ -41,6 +41,12 @@
             android:text="Register"
             android:clickable="true"
             android:id="@+id/goToRegister"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continue as anonymous"
+            android:clickable="true"
+            android:id="@+id/anonymous"/>
 
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

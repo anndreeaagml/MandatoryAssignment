@@ -41,14 +41,17 @@ public class TimelineActivity extends AppCompatActivity {
         setTitle("Twister");
         getAndShowPosts();
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent go_to_new_post = new Intent(TimelineActivity.this, CreateNewPostActivity.class);
-                go_to_new_post.putExtra("username", FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                startActivity(go_to_new_post);
-            }
-        });
+        if (FirebaseAuth.getInstance().getCurrentUser()!=null) {
+            fab.setVisibility(View.VISIBLE);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent go_to_new_post = new Intent(TimelineActivity.this, CreateNewPostActivity.class);
+                    go_to_new_post.putExtra("username", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                    startActivity(go_to_new_post);
+                }
+            });
+        }
     }
 
     @Override
@@ -114,6 +117,8 @@ public class TimelineActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.sign_out_button:
                 //Sign out here
+                if (FirebaseAuth.getInstance().getCurrentUser()==null)
+                    finish();
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 return true; // true: menu processing done, no further actions
