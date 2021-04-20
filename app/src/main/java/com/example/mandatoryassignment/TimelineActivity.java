@@ -109,6 +109,8 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_timeline, menu);
+        if (FirebaseAuth.getInstance().getCurrentUser()==null)
+            menu.findItem(R.id.sign_out_button).setTitle("Log In");
         return super.onCreateOptionsMenu(menu);
     }
 
