@@ -1,3 +1,4 @@
+
 package com.example.mandatoryassignment
 
 import android.annotation.SuppressLint
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+//import kotlinx.android.syntetic.main.activity_register.*
+
 
 class RegisterActivity : AppCompatActivity() {
     private var user: TextInputEditText? = null
