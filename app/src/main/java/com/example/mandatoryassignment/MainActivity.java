@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goToRegister = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(goToRegister);
+                finish();
 
             }
         });
