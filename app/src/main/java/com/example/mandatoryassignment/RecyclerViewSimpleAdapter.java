@@ -2,16 +2,26 @@ package com.example.mandatoryassignment;
 
 import android.content.Context;
 import android.content.Intent;
+
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Outline;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.Shape;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,9 +60,15 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
         //main container
-        LinearLayout layout = new LinearLayout(context);
-        layout.setPadding(30,20,30,20);
+        LinearLayout layoutmegamain = new LinearLayout(context);
 
+        LinearLayout layout = new LinearLayout(context);
+        layoutmegamain.setPadding(10,10,10,10);
+        layout.setPadding(10,10,10,10);
+        layoutmegamain.setLayoutParams(params);
+        layout.setBackground(ContextCompat.getDrawable(context,R.drawable.rounded_corners));
+        layoutmegamain.setBackgroundColor(Color.argb(255,40,40,40));
+        layout.setClipToOutline(true);
         layout.setLayoutParams(params);
         layout.setOrientation(LinearLayout.VERTICAL);
         //Comment itself
@@ -61,14 +77,22 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
         commentSection.setLayoutParams(params);
 
         TextView username = new TextView(context);
+        username.setTextSize(16);
         username.setId(userId);
         username.setLayoutParams(params);
+        username.setTextColor(Color.argb(255,120,120,255));
+
         TextView userComment = new TextView(context);
         userComment.setId(commentId);
         userComment.setLayoutParams(params);
+        userComment.setTextColor(Color.argb(255,255,255,255));
+
         TextView commentComments = new TextView(context);
         commentComments.setId(comComId);
         commentComments.setLayoutParams(params);
+        commentComments.setTextColor(Color.argb(150,255,255,255));
+        commentComments.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+        commentComments.setTextSize(12);
 
         commentSection.addView(username);
         commentSection.addView(userComment);
@@ -76,9 +100,10 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
 
         layout.addView(commentSection);
         layout.setId(viewId);
+        layoutmegamain.addView(layout);
 
        // Log.d("banana", textView.toString());
-        return layout;
+        return layoutmegamain;
     }
 
     @Override

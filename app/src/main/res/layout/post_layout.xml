@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_corners"
+    android:layout_margin="10dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Jimmy"
+        android:textSize="20sp"
+        android:textColor="#00008b"
+        android:id="@+id/usernameForTwist"/>
+
+        <TextView
+            android:id="@+id/contentForTwist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Cause' I'm a gipsy"
+            android:textAlignment="viewStart" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0 Comments"
+            android:textSize="9sp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/commentNumberTwist"
+            android:gravity="right"
+            />
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>
