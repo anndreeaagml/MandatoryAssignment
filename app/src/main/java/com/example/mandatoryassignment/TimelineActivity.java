@@ -153,6 +153,8 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 // Row is swiped from recycler view
+                if (FirebaseAuth.getInstance().getCurrentUser()==null)
+                    return;
                 final int position = viewHolder.getAdapterPosition();
                 if (position >= 0) {
                     int id = ((RecyclerViewSimpleAdapter) recyclerView.getAdapter()).getItem(position).getId();
@@ -167,6 +169,8 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 // view the background view
+                if (FirebaseAuth.getInstance().getCurrentUser()==null)
+                    return;
                 final int position = viewHolder.getAdapterPosition();
                 if (position >= 0) {
                     String user = twisterAdapter.getItem(position).getUser();
