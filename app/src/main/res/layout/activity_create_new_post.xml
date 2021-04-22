@@ -11,34 +11,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/back_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:backgroundTint="@color/BackgroundColor"
             android:insetLeft="12dp"
             android:onClick="Cancel"
-            app:icon="@android:drawable/ic_menu_close_clear_cancel" />
+            app:icon="@android:drawable/ic_menu_close_clear_cancel"
+            app:iconGravity="textStart" />
 
         <TextView
             android:id="@+id/textview_first"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="100"
+            android:layout_gravity="center"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="Create new post"
-            android:textAlignment="center"
+            android:textAlignment="gravity"
             android:textAllCaps="false"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/button_first"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
+            android:layout_weight="2"
             android:backgroundTint="@color/ToolbarColor"
             android:onClick="Post"
             android:text="Post"
@@ -53,13 +56,23 @@
         android:layout_weight="0"
         android:gravity="center"
         android:text="Jimmy"
-        android:textAlignment="viewStart"
         android:textColor="@color/UserTextColor"
         android:textSize="18sp" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/text_input"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="What's on your mind?" />
+        android:layout_weight="0"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="What's on your mind?"
+             />
+
+    </LinearLayout>
+
 </LinearLayout>

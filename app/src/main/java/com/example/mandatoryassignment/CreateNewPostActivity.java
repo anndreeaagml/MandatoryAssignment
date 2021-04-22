@@ -33,7 +33,7 @@ public class CreateNewPostActivity extends AppCompatActivity {
         String messageText = ((TextInputEditText) findViewById(R.id.text_input)).getText().toString();
         if (messageText.isEmpty())
         {
-            Toast.makeText(CreateNewPostActivity.this, "Haha. No.",
+            Toast.makeText(CreateNewPostActivity.this, "Try typing something",
                     Toast.LENGTH_SHORT).show();
             return;
         }

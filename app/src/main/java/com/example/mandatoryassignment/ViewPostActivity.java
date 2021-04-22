@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.io.Serializable;
 import java.util.List;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -25,7 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TwisterActivity extends AppCompatActivity {
+public class ViewPostActivity extends AppCompatActivity {
 
     private int messId;
     private RecyclerViewCommentsAdapter commentsAdapter;
@@ -33,7 +32,7 @@ public class TwisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_twister);
+        setContentView(R.layout.activity_view_post);
         Intent intent = getIntent();
         Message message = (Message) intent.getSerializableExtra("Message");
         Log.d("banana", "Post Id = " + message.getId());
@@ -119,7 +118,8 @@ public class TwisterActivity extends AppCompatActivity {
                     if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(user)) {
 
                         new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                                .addSwipeLeftBackgroundColor(ContextCompat.getColor(TwisterActivity.this, R.color.design_default_color_error))
+                                .addSwipeLeftBackgroundColor(ContextCompat.getColor(ViewPostActivity.this, R.color.design_default_color_error))
+                                .addActionIcon(R.drawable.ic_delete)
                                 .create()
                                 .decorate();
                         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -159,7 +159,7 @@ public class TwisterActivity extends AppCompatActivity {
         String commentText = input.getText().toString();
         if (commentText.isEmpty())
         {
-            Toast.makeText(TwisterActivity.this, "Haha. No.",
+            Toast.makeText(ViewPostActivity.this, "You forgot to write something",
                     Toast.LENGTH_SHORT).show();
             return;
         }

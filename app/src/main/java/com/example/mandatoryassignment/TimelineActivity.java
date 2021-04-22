@@ -3,7 +3,6 @@ package com.example.mandatoryassignment;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.app.ActivityOptions;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -139,7 +138,7 @@ public class TimelineActivity extends AppCompatActivity {
             Message msg = (Message) item;
             Log.d("banana", item.toString());
             Message mess = ((RecyclerViewSimpleAdapter) recyclerView.getAdapter()).getItem(position);
-            Intent GoToPost = new Intent(this, TwisterActivity.class);
+            Intent GoToPost = new Intent(this, ViewPostActivity.class);
             GoToPost.putExtra("Message", (Serializable) mess);
             startActivity(GoToPost);
         });
@@ -178,6 +177,7 @@ public class TimelineActivity extends AppCompatActivity {
 
                         new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                                 .addSwipeLeftBackgroundColor(ContextCompat.getColor(TimelineActivity.this, R.color.design_default_color_error))
+                                .addActionIcon(R.drawable.ic_delete)
                                 .create()
                                 .decorate();
                         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);

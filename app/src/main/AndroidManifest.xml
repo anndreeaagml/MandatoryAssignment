@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MandatoryAssignment">
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".TwisterActivity" />
+        <activity android:name=".ViewPostActivity" />
         <activity android:name=".CreateNewPostActivity" />
         <activity
             android:name=".TimelineActivity"
