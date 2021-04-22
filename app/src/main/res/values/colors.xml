@@ -12,4 +12,5 @@
     <color name="CommentColor">#99ffffff</color>
     <color name="PostColor">#FFFFFF</color>
     <color name="backgroundColor">#282828</color>
+    <color name="LoginBgColor">#EFEFEF</color>
 </resources>
