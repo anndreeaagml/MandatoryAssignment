@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -94,6 +95,7 @@ public class ViewPostActivity extends AppCompatActivity {
         });
     }
     private void populateRecyclerView(List<Comment> allComments) {
+        Collections.reverse(allComments);
         RecyclerView recyclerView = findViewById(R.id.listOfComments);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         commentsAdapter = new RecyclerViewCommentsAdapter<>(allComments);
