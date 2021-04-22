@@ -32,7 +32,7 @@ public class ViewPostActivity extends AppCompatActivity {
     private int messId;
     private RecyclerViewCommentsAdapter commentsAdapter;
     private Timer timer = new Timer();
-
+    private int lastposition =0;
     @Override
     protected void onPause()
     {
@@ -97,9 +97,14 @@ public class ViewPostActivity extends AppCompatActivity {
     private void populateRecyclerView(List<Comment> allComments) {
         Collections.reverse(allComments);
         RecyclerView recyclerView = findViewById(R.id.listOfComments);
+        if(commentsAdapter !=null)
+            lastposition= ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         commentsAdapter = new RecyclerViewCommentsAdapter<>(allComments);
         recyclerView.setAdapter(commentsAdapter);
+
+        recyclerView.scrollToPosition(lastposition);
+
         commentsAdapter.setOnItemClickListener((view, position, item) -> {
             Comment comm = (Comment) item;
             Log.d("getcomm", item.toString());

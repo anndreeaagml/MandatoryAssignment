@@ -33,6 +33,8 @@ public class TimelineActivity extends AppCompatActivity {
 
     private RecyclerViewSimpleAdapter twisterAdapter;
     private Timer timer = new Timer();
+    private int lastposition = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,11 +152,18 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void populateRecyclerView(List<Message> allMessages) {
+
+
         RecyclerView recyclerView = findViewById(R.id.mainRecyclerView);
+        if(twisterAdapter !=null)
+        lastposition= ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         twisterAdapter = new RecyclerViewSimpleAdapter<>(allMessages);
         recyclerView.setAdapter(twisterAdapter);
+
+        recyclerView.scrollToPosition(lastposition);
+
         twisterAdapter.setOnItemClickListener((view, position, item) -> {
             Message msg = (Message) item;
             Log.d("banana", item.toString());
