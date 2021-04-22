@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-//import kotlinx.android.syntetic.main.activity_register.*
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -39,7 +38,7 @@ class RegisterActivity : AppCompatActivity() {
                         Log.d("banana", "createUserWIthEmail : success")
                         Toast.makeText(this@RegisterActivity, "Successfully Created User.", Toast.LENGTH_SHORT).show()
                         val u = authResult.user
-                        goToLogInPage()
+                        goToLogInPage(v)
                     }.addOnFailureListener(this) { e: Exception ->
                         Log.w("banana", "createUserWithEmail : failure", e)
                         Toast.makeText(this@RegisterActivity, "Registration Failed.", Toast.LENGTH_SHORT).show()
@@ -52,7 +51,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    fun goToLogInPage() {
+    fun goToLogInPage(v: View?) {
         finish()
     }
 }
