@@ -21,6 +21,8 @@ import android.view.View;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import retrofit2.Call;
@@ -30,7 +32,7 @@ import retrofit2.Response;
 public class TimelineActivity extends AppCompatActivity {
 
     private RecyclerViewSimpleAdapter twisterAdapter;
-
+    private Timer timer = new Timer();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +40,7 @@ public class TimelineActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Twister");
-        getAndShowPosts();
+        //getAndShowPosts();
         FloatingActionButton fab = findViewById(R.id.fab);
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             fab.setVisibility(View.VISIBLE);
@@ -51,12 +53,31 @@ public class TimelineActivity extends AppCompatActivity {
                 }
             });
         }
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getAndShowPosts();
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Your logic here...
+                getAndShowPosts();
+                // When you need to modify a UI element, do so on the UI thread.
+                // 'getActivity()' is required as this is being ran from a Fragment.
+
+            }
+        }, 0, 3000);
+
+    }
+
+    @Override
+    protected void onPause() {
+        timer.cancel();
+        super.onPause();
     }
 
     public void getAndShowPosts() {
@@ -68,7 +89,7 @@ public class TimelineActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<Message> allMessages = response.body();
                     populateRecyclerView(allMessages);
-                    Log.d("banana", allMessages.toString());
+                    Log.d("update banana ", allMessages.toString());
                 } else {
                     String message = "Problem " + response.code() + " " + response.message();
                     Log.d("banana", message);
@@ -108,7 +129,7 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_timeline, menu);
-        if (FirebaseAuth.getInstance().getCurrentUser()==null)
+        if (FirebaseAuth.getInstance().getCurrentUser() == null)
             menu.findItem(R.id.sign_out_button).setTitle("Log In");
         return super.onCreateOptionsMenu(menu);
     }
@@ -152,7 +173,7 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 // Row is swiped from recycler view
-                if (FirebaseAuth.getInstance().getCurrentUser()==null)
+                if (FirebaseAuth.getInstance().getCurrentUser() == null)
                     return;
                 final int position = viewHolder.getAdapterPosition();
                 if (position >= 0) {
@@ -168,7 +189,7 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 // view the background view
-                if (FirebaseAuth.getInstance().getCurrentUser()==null)
+                if (FirebaseAuth.getInstance().getCurrentUser() == null)
                     return;
                 final int position = viewHolder.getAdapterPosition();
                 if (position >= 0) {

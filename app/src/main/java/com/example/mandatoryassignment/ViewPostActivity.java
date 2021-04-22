@@ -18,6 +18,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import retrofit2.Call;
@@ -28,6 +30,14 @@ public class ViewPostActivity extends AppCompatActivity {
 
     private int messId;
     private RecyclerViewCommentsAdapter commentsAdapter;
+    private Timer timer = new Timer();
+
+    @Override
+    protected void onPause()
+    {
+        timer.cancel();
+        super.onPause();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +58,17 @@ public class ViewPostActivity extends AppCompatActivity {
         {
             findViewById(R.id.postComment).setVisibility(View.VISIBLE);
         }
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Your logic here...
+                getAndShowComments(message.getId());
+                // When you need to modify a UI element, do so on the UI thread.
+                // 'getActivity()' is required as this is being ran from a Fragment.
+
+            }
+        }, 3000, 3000);
     }
     public void getAndShowComments(Integer id) {
         CommentsService mess = ApiUtils.getCommentsService();
@@ -57,7 +78,7 @@ public class ViewPostActivity extends AppCompatActivity {
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                 if (response.isSuccessful()) {
                     List<Comment> allComments = response.body();
-                    Log.d("comments", allComments.toString());
+                    Log.d("comments update", allComments.toString());
                     populateRecyclerView(allComments);
 
                 } else {
