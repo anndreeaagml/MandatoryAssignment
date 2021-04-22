@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goToRegister = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(goToRegister);
-                finish();
-
             }
         });
         findViewById(R.id.anonymous).setOnClickListener(new View.OnClickListener() {
@@ -41,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goToTimeline = new Intent(MainActivity.this, TimelineActivity.class);
                 startActivity(goToTimeline);
+                finish();
             }
         });
     }
@@ -82,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         Intent gotoFeed = new Intent(this, TimelineActivity.class);
         gotoFeed.putExtra("EMAIL", user.getEmail());
         startActivity(gotoFeed);
+        finish();
     }
 
     @Override

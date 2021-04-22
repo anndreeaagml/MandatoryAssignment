@@ -2,6 +2,7 @@ package com.example.mandatoryassignment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,9 +52,15 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
         //main container
-        LinearLayout layout = new LinearLayout(context);
-        layout.setPadding(30, 20, 30, 20);
+        LinearLayout layoutmegamain= new LinearLayout(context);
 
+        LinearLayout layout = new LinearLayout(context);
+        layoutmegamain.setPadding(10,10,10,10);
+        layout.setPadding(10,10,10,10);
+        layoutmegamain.setLayoutParams(params);
+        layoutmegamain.setBackgroundColor(Color.argb(255,40,40,40));
+        layout.setBackground(ContextCompat.getDrawable(context,R.drawable.rounded_corners));
+        layout.setClipToOutline(true);
         layout.setLayoutParams(params);
         layout.setOrientation(LinearLayout.VERTICAL);
         //Comment itself
@@ -61,11 +69,15 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
         commentSection.setLayoutParams(params);
 
         TextView username = new TextView(context);
+        username.setTextSize(16);
         username.setId(userId);
         username.setLayoutParams(params);
+        username.setTextColor(Color.argb(255,120,120,255));
+
         TextView userComment = new TextView(context);
         userComment.setId(commentId);
         userComment.setLayoutParams(params);
+        userComment.setTextColor(Color.argb(255,255,255,255));
 
         commentSection.addView(username);
         commentSection.addView(userComment);
@@ -73,8 +85,8 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
         layout.addView(commentSection);
 
         layout.setId(viewId);
-
-        return layout;
+        layoutmegamain.addView(layout);
+        return layoutmegamain;
     }
 
     @Override

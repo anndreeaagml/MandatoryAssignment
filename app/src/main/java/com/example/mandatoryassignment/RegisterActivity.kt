@@ -53,7 +53,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun goToLogInPage() {
-        val gotoLogIn = Intent(this, MainActivity::class.java)
-        startActivity(gotoLogIn)
+        finish()
     }
 }
