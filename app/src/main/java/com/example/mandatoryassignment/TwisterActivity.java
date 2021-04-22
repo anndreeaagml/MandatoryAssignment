@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -153,6 +154,12 @@ public class TwisterActivity extends AppCompatActivity {
     public void PostComment(View view) {
         TextInputEditText input=findViewById(R.id.newComment);
         String commentText = input.getText().toString();
+        if (commentText.isEmpty())
+        {
+            Toast.makeText(TwisterActivity.this, "Haha. No.",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         CommentsService com= ApiUtils.getCommentsService();
         Comment newComment = new Comment();
         newComment.setContent(commentText);

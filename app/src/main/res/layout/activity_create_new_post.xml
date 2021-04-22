@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     android:orientation="vertical"
     tools:context=".CreateNewPostActivity">
 
@@ -17,8 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="X"
-            android:onClick="Cancel"/>
+            android:backgroundTint="@color/ToolbarColor"
+            android:onClick="Cancel"
+            android:text="Cancel" />
 
         <TextView
             android:id="@+id/textview_first"
@@ -28,7 +30,6 @@
             android:gravity="center"
             android:text="Create new post"
             android:textAlignment="center"
-            android:textColor="#000080"
             android:textSize="25dp"
             android:textStyle="bold" />
 
@@ -37,8 +38,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            android:text="Post"
-            android:onClick="Post"/>
+            android:backgroundTint="@color/ToolbarColor"
+            android:onClick="Post"
+            android:text="Post" />
 
     </LinearLayout>
 
@@ -50,11 +52,12 @@
         android:gravity="center"
         android:text="Jimmy"
         android:textAlignment="viewStart"
+        android:textColor="@color/userTextColor"
         android:textSize="18sp" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:hint="What's new pussycat?"
         android:id="@+id/text_input"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="What's on your mind?" />
 </LinearLayout>

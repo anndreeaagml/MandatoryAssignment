@@ -67,6 +67,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/newComment"
+                android:hint="Write your comment here.."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -77,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:backgroundTint="@color/ToolbarColor"
                 android:onClick="PostComment"
                 android:text="Post Comment" />
         </LinearLayout>

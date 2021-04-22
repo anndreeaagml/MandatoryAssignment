@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +31,12 @@ public class CreateNewPostActivity extends AppCompatActivity {
     public void Post(View view) {
 
         String messageText = ((TextInputEditText) findViewById(R.id.text_input)).getText().toString();
+        if (messageText.isEmpty())
+        {
+            Toast.makeText(CreateNewPostActivity.this, "Haha. No.",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         MessageService mess= ApiUtils.getMessageService();
         Message newComment = new Message();
         newComment.setContent(messageText);
