@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="Login"
-        android:textColor="@color/userTextColor"
+        android:textColor="@color/UserTextColor"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,6 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/username"
         app:layout_constraintVertical_bias="0.03"
         android:id="@+id/password"/>
+
     <Button
         android:id="@+id/loginbutton"
         android:layout_width="0dp"
@@ -80,13 +81,13 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="100dp"
+        android:backgroundTint="@color/ToolbarColor"
+        android:onClick="LogIn"
         android:text="Login"
-        android:backgroundTint="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        android:onClick="LogIn"/>
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <TextView
         android:layout_marginTop="25dp"

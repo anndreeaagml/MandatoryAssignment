@@ -95,6 +95,8 @@ public class TwisterActivity extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 // Row is swiped from recycler view
+                if (FirebaseAuth.getInstance().getCurrentUser()==null)
+                    return;
                 final int position = viewHolder.getAdapterPosition();
                 if (position >= 0) {
                     int id = ((RecyclerViewCommentsAdapter)recyclerView.getAdapter()).getItem(position).getId();
@@ -109,6 +111,8 @@ public class TwisterActivity extends AppCompatActivity {
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 // view the background view
+                if (FirebaseAuth.getInstance().getCurrentUser()==null)
+                    return;
                 final int position = viewHolder.getAdapterPosition();
                 if (position >= 0) {
                     String user = commentsAdapter.getItem(position).getUser();
@@ -116,7 +120,6 @@ public class TwisterActivity extends AppCompatActivity {
 
                         new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                                 .addSwipeLeftBackgroundColor(ContextCompat.getColor(TwisterActivity.this, R.color.design_default_color_error))
-                                .addSwipeLeftActionIcon(R.drawable.googleg_disabled_color_18)
                                 .create()
                                 .decorate();
                         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);

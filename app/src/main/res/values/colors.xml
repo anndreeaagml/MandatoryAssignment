@@ -8,10 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FFFF0000</color>
-    <color name="userTextColor">#7d78ff</color>
+    <color name="UserTextColor">#7d78ff</color>
     <color name="CommentColor">#99ffffff</color>
     <color name="PostColor">#FFFFFF</color>
-    <color name="backgroundColor">#282828</color>
+    <color name="BackgroundColor">#282828</color>
     <color name="LoginBgColor">#282828</color>
-    <color name="ToolbarColor">#0097A7</color>
+    <color name="ToolbarColor">@color/UserTextColor</color>
 </resources>

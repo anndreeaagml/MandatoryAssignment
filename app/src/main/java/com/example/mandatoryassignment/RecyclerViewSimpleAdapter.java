@@ -1,30 +1,16 @@
 package com.example.mandatoryassignment;
 
 import android.content.Context;
-import android.content.Intent;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Outline;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.Shape;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewOutlineProvider;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -67,7 +53,7 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
         layout.setPadding(10,10,10,10);
         layoutmegamain.setLayoutParams(params);
         layout.setBackground(ContextCompat.getDrawable(context,R.drawable.rounded_corners));
-        layoutmegamain.setBackgroundColor(ContextCompat.getColor(context,R.color.backgroundColor));
+        layoutmegamain.setBackgroundColor(ContextCompat.getColor(context,R.color.BackgroundColor));
         layout.setClipToOutline(true);
         layout.setLayoutParams(params);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -80,7 +66,7 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
         username.setTextSize(16);
         username.setId(userId);
         username.setLayoutParams(params);
-        username.setTextColor(ContextCompat.getColor(context,R.color.userTextColor));
+        username.setTextColor(ContextCompat.getColor(context,R.color.UserTextColor));
 
         TextView userComment = new TextView(context);
         userComment.setId(commentId);
