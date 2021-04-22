@@ -58,7 +58,7 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
         layoutmegamain.setPadding(10,10,10,10);
         layout.setPadding(10,10,10,10);
         layoutmegamain.setLayoutParams(params);
-        layoutmegamain.setBackgroundColor(Color.argb(255,40,40,40));
+        layoutmegamain.setBackgroundColor(ContextCompat.getColor(context,R.color.backgroundColor));
         layout.setBackground(ContextCompat.getDrawable(context,R.drawable.rounded_corners));
         layout.setClipToOutline(true);
         layout.setLayoutParams(params);
@@ -72,12 +72,12 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
         username.setTextSize(16);
         username.setId(userId);
         username.setLayoutParams(params);
-        username.setTextColor(Color.argb(255,120,120,255));
+        username.setTextColor(ContextCompat.getColor(context,R.color.userTextColor));
 
         TextView userComment = new TextView(context);
         userComment.setId(commentId);
         userComment.setLayoutParams(params);
-        userComment.setTextColor(Color.argb(255,255,255,255));
+        userComment.setTextColor(ContextCompat.getColor(context,R.color.PostColor));
 
         commentSection.addView(username);
         commentSection.addView(userComment);

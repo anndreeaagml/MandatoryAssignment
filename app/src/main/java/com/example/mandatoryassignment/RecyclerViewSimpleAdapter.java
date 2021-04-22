@@ -67,7 +67,7 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
         layout.setPadding(10,10,10,10);
         layoutmegamain.setLayoutParams(params);
         layout.setBackground(ContextCompat.getDrawable(context,R.drawable.rounded_corners));
-        layoutmegamain.setBackgroundColor(Color.argb(255,40,40,40));
+        layoutmegamain.setBackgroundColor(ContextCompat.getColor(context,R.color.backgroundColor));
         layout.setClipToOutline(true);
         layout.setLayoutParams(params);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -80,17 +80,17 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
         username.setTextSize(16);
         username.setId(userId);
         username.setLayoutParams(params);
-        username.setTextColor(Color.argb(255,120,120,255));
+        username.setTextColor(ContextCompat.getColor(context,R.color.userTextColor));
 
         TextView userComment = new TextView(context);
         userComment.setId(commentId);
         userComment.setLayoutParams(params);
-        userComment.setTextColor(Color.argb(255,255,255,255));
+        userComment.setTextColor(ContextCompat.getColor(context,R.color.PostColor));
 
         TextView commentComments = new TextView(context);
         commentComments.setId(comComId);
         commentComments.setLayoutParams(params);
-        commentComments.setTextColor(Color.argb(150,255,255,255));
+        commentComments.setTextColor(ContextCompat.getColor(context,R.color.CommentColor));
         commentComments.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
         commentComments.setTextSize(12);
 

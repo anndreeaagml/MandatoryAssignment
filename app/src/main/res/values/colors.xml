@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FFFF0000</color>
+    <color name="userTextColor">#7d78ff</color>
+    <color name="CommentColor">#99ffffff</color>
+    <color name="PostColor">#FFFFFF</color>
+    <color name="backgroundColor">#282828</color>
 </resources>

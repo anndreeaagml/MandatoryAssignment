@@ -1,60 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#00000000">
+    android:backgroundTint="@color/black">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#DFDFDF"
+        android:background="@color/backgroundColor"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
+
             <TextView
                 android:id="@+id/user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Jimmy" />
+                android:text="Jimmy"
+                android:textColor="@color/userTextColor"
+                android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Yo, that was lit" />
+                android:text="Yo, that was lit"
+                android:textColor="@color/PostColor" />
+
             <TextView
                 android:id="@+id/totalComments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="213 Comments" />
+                android:text="213 Comments"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/CommentColor"
+                android:textSize="12sp" />
         </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listOfComments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/listOfComments"/>
+            android:layout_weight="1" />
+
         <LinearLayout
+            android:id="@+id/postComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/postComment"
             android:visibility="gone">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/newComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:minWidth="300px" />
+
             <Button
                 android:id="@+id/postCommentBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="Post Comment"
-                android:onClick="PostComment"/>
+                android:onClick="PostComment"
+                android:text="Post Comment" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
