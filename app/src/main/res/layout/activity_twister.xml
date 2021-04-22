@@ -15,9 +15,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="0"
+            android:background="@drawable/rounded_corners"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:paddingLeft="10dp">
 
             <TextView
                 android:id="@+id/user"
@@ -26,7 +29,7 @@
                 android:layout_weight="1"
                 android:text="Jimmy"
                 android:textColor="@color/userTextColor"
-                android:textSize="16sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/content"
@@ -34,7 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Yo, that was lit"
-                android:textColor="@color/PostColor" />
+                android:textColor="@color/PostColor"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/totalComments"
@@ -51,6 +55,7 @@
             android:id="@+id/listOfComments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:layout_weight="1" />
 
         <LinearLayout
