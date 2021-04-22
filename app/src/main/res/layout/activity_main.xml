@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E6DC7E"
+    android:background="#FFFFFFFF"
     tools:context=".MainActivity">
 
     <TextView
@@ -81,6 +81,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="100dp"
         android:text="Login"
+        android:backgroundTint="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goToTimeline = new Intent(MainActivity.this, TimelineActivity.class);
                 startActivity(goToTimeline);
-                finish();
             }
         });
     }
@@ -81,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         Intent gotoFeed = new Intent(this, TimelineActivity.class);
         gotoFeed.putExtra("EMAIL", user.getEmail());
         startActivity(gotoFeed);
-        finish();
     }
 
     @Override

@@ -43,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
                     }.addOnFailureListener(this) { e: Exception ->
                         Log.w("banana", "createUserWithEmail : failure", e)
                         Toast.makeText(this@RegisterActivity, "Registration Failed.", Toast.LENGTH_SHORT).show()
-                        errorMessage!!.text = """Registration error: ${e.message}""".trimIndent()
+                        errorMessage!!.text = """Registration error: ${e.message}"""
                         errorMessage!!.visibility = View.VISIBLE
                     }
         } else {
