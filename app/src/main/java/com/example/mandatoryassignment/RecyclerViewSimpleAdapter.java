@@ -67,7 +67,7 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
         layout.setPadding(10,10,10,10);
         layoutmegamain.setLayoutParams(params);
         layout.setBackground(ContextCompat.getDrawable(context,R.drawable.rounded_corners));
-        layoutmegamain.setBackgroundColor(ContextCompat.getColor(context,R.color.backgroundColor));
+        layoutmegamain.setBackgroundColor(ContextCompat.getColor(context,R.color.ToolbarColor));
         layout.setClipToOutline(true);
         layout.setLayoutParams(params);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -77,7 +77,7 @@ public class RecyclerViewSimpleAdapter<T> extends RecyclerView.Adapter<RecyclerV
         commentSection.setLayoutParams(params);
 
         TextView username = new TextView(context);
-        username.setTextSize(16);
+        username.setTextSize(18);
         username.setId(userId);
         username.setLayoutParams(params);
         username.setTextColor(ContextCompat.getColor(context,R.color.userTextColor));

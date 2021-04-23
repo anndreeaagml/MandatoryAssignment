@@ -58,7 +58,7 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
         layoutmegamain.setPadding(10,10,10,10);
         layout.setPadding(10,10,10,10);
         layoutmegamain.setLayoutParams(params);
-        layoutmegamain.setBackgroundColor(ContextCompat.getColor(context,R.color.backgroundColor));
+        layoutmegamain.setBackgroundColor(ContextCompat.getColor(context,R.color.ToolbarColor));
         layout.setBackground(ContextCompat.getDrawable(context,R.drawable.rounded_corners));
         layout.setClipToOutline(true);
         layout.setLayoutParams(params);

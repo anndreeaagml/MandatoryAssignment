@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
+    android:background="@color/ToolbarColor"
     tools:context=".TimelineActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -32,7 +32,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:visibility="gone"
-        android:backgroundTint="@color/ToolbarColor"
+        android:backgroundTint="@color/allButtons"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

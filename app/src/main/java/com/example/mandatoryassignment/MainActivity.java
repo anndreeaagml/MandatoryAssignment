@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,18 +21,27 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "banana";
+    private TextView error;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
+        error=findViewById(R.id.errorMessage);
         setTitle("Twister");
         findViewById(R.id.goToRegister).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent goToRegister = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(goToRegister);
+            }
+        });
+        findViewById(R.id.goToPasswordReset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToPassword = new Intent(MainActivity.this, PasswordActivity.class);
+                startActivity(goToPassword);
             }
         });
         findViewById(R.id.anonymous).setOnClickListener(new View.OnClickListener() {
@@ -49,9 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         String password = ((TextInputEditText) findViewById(R.id.password)).getText().toString();
         if (password.isEmpty() || username.isEmpty()) {
-            //Log.w(TAG, "signInWithEmail:failure", task.getException());
-            Toast.makeText(MainActivity.this, "Authentication failed.",
-                    Toast.LENGTH_SHORT).show();
+            error.setText("Please enter the username and password");
+            error.setVisibility(View.VISIBLE);
         } else {
             mAuth.signInWithEmailAndPassword(username, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -65,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(MainActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
+                                error.setText("Wrong username/password");
+                                error.setVisibility(View.VISIBLE);
                                 //updateUI(null);
                             }
 
@@ -75,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     });
         }
     }
+
 
     private void updateUI(FirebaseUser user) {
         Intent gotoFeed = new Intent(this, TimelineActivity.class);

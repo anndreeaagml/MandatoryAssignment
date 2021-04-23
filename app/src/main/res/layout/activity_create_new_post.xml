@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
     android:orientation="vertical"
     tools:context=".CreateNewPostActivity">
 
@@ -13,14 +12,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <TextView
             android:id="@+id/back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/ToolbarColor"
+            android:textSize="20dp"
+            android:backgroundTint="@color/backgroundColor"
             android:onClick="Cancel"
-            android:text="Cancel" />
+            android:text="X" />
 
         <TextView
             android:id="@+id/textview_first"
@@ -35,10 +36,10 @@
 
         <Button
             android:id="@+id/button_first"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:backgroundTint="@color/ToolbarColor"
+            android:layout_weight="1"
+            android:backgroundTint="@color/allButtons"
             android:onClick="Post"
             android:text="Post" />
 

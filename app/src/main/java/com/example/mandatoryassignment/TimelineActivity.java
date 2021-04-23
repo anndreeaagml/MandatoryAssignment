@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ import retrofit2.Response;
 public class TimelineActivity extends AppCompatActivity {
 
     private RecyclerViewSimpleAdapter twisterAdapter;
+    private List<Message> allMessages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 if (response.isSuccessful()) {
-                    List<Message> allMessages = response.body();
+                    allMessages = response.body();
                     populateRecyclerView(allMessages);
                     Log.d("banana", allMessages.toString());
                 } else {
@@ -83,7 +85,7 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
-    private void deleteComment(int position) {
+    private void deletePost(int position) {
         MessageService mess = ApiUtils.getMessageService();
         Call<Message> deleteMessage = mess.deleteMessage(position);
         deleteMessage.enqueue(new Callback<Message>() {
@@ -93,6 +95,7 @@ public class TimelineActivity extends AppCompatActivity {
                     Message delMsg = response.body();
                     getAndShowPosts();
                     Log.d("banana", "Deleted " + delMsg.toString());
+                    getAndDeleteAllComments(delMsg.getId());
                 } else {
                     String message = "Problem " + response.code() + " " + response.message();
                     Log.d("banana", message);
@@ -105,12 +108,56 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
     }
+    public void getAndDeleteAllComments(Integer id) {
+        CommentsService mess = ApiUtils.getCommentsService();
+        Call<List<Comment>> getAllCommentsCall = mess.getAllComments(id);
+        getAllCommentsCall.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                if (response.isSuccessful()) {
+                    List<Comment> allComments = response.body();
+                    Log.d("comments", allComments.toString());
+                    for (Comment comment:allComments) deleteComment(comment.getId(), id);
+                } else {
+                    String message = "Problem " + response.code() + " " + response.message();
+                    Log.d("comments", message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+                Log.e("comments", t.getMessage());
+            }
+        });
+    }
+    private void deleteComment(int position, int messId) {
+        CommentsService mess = ApiUtils.getCommentsService();
+        Call<Comment> deleteComment = mess.deleteComment(messId,position);
+        deleteComment.enqueue(new Callback<Comment>() {
+            @Override
+            public void onResponse(Call<Comment> call, Response<Comment> response) {
+                if (response.isSuccessful()) {
+                    Comment delCom = response.body();
+                    Log.d("comment","Deleted " + delCom.toString());
+                } else {
+                    String message = "Problem " + response.code() + " " + response.message();
+                    Log.d("banana", message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Comment> call, Throwable t) {
+                Log.e("banana", t.getMessage());
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_timeline, menu);
-        if (FirebaseAuth.getInstance().getCurrentUser()==null)
+        if (FirebaseAuth.getInstance().getCurrentUser()==null){
             menu.findItem(R.id.sign_out_button).setTitle("Log In");
+                   }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -160,7 +207,7 @@ public class TimelineActivity extends AppCompatActivity {
                     int id = ((RecyclerViewSimpleAdapter) recyclerView.getAdapter()).getItem(position).getId();
                     String user = ((RecyclerViewSimpleAdapter) recyclerView.getAdapter()).getItem(position).getUser();
                     if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(user)) {
-                        deleteComment(id);
+                        deletePost(id);
                     }
                 }
                 // remove it from adapter
@@ -178,7 +225,7 @@ public class TimelineActivity extends AppCompatActivity {
 
                         new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                                 .addSwipeLeftBackgroundColor(ContextCompat.getColor(TimelineActivity.this, R.color.design_default_color_error))
-                                .addSwipeLeftActionIcon(R.drawable.googleg_disabled_color_18)
+                                .addSwipeLeftActionIcon(android.R.drawable.ic_menu_delete)
                                 .create()
                                 .decorate();
                         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);

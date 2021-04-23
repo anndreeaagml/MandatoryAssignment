@@ -29,6 +29,7 @@ public class TwisterActivity extends AppCompatActivity {
 
     private int messId;
     private RecyclerViewCommentsAdapter commentsAdapter;
+    private int messComm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class TwisterActivity extends AppCompatActivity {
         content.setText(message.getContent());
         getAndShowComments(message.getId());
         messId=message.getId();
+        messComm=message.getTotalComments();
         comm.setText(message.getTotalComments() + " Comments");
         Jimmy.setText(message.getUser());
         if (FirebaseAuth.getInstance().getCurrentUser()!=null)
@@ -120,7 +122,7 @@ public class TwisterActivity extends AppCompatActivity {
 
                         new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                                 .addSwipeLeftBackgroundColor(ContextCompat.getColor(TwisterActivity.this, R.color.design_default_color_error))
-                                .addSwipeLeftActionIcon(R.drawable.googleg_disabled_color_18)
+                                .addSwipeLeftActionIcon(android.R.drawable.ic_menu_delete)
                                 .create()
                                 .decorate();
                         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -134,6 +136,9 @@ public class TwisterActivity extends AppCompatActivity {
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
     private void deleteComment(int position) {
+        TextView comm = (TextView) findViewById(R.id.totalComments);
+        messComm=messComm-1;
+        comm.setText(messComm+ " Comments");
         CommentsService mess = ApiUtils.getCommentsService();
         Call<Comment> deleteComment = mess.deleteComment(messId,position);
         deleteComment.enqueue(new Callback<Comment>() {
@@ -160,7 +165,7 @@ public class TwisterActivity extends AppCompatActivity {
         String commentText = input.getText().toString();
         if (commentText.isEmpty())
         {
-            Toast.makeText(TwisterActivity.this, "Haha. No.",
+            Toast.makeText(TwisterActivity.this, "Please enter a comment",
                     Toast.LENGTH_SHORT).show();
             return;
         }
@@ -179,6 +184,9 @@ public class TwisterActivity extends AppCompatActivity {
                     Comment newComment = response.body();
                     Log.d("banana", newComment.toString());
                     getAndShowComments(messId);
+                    TextView comm = (TextView) findViewById(R.id.totalComments);
+                    messComm=messComm+1;
+                    comm.setText(messComm+ " Comments");
                     input.getText().clear();
                 }
                 else {

@@ -1,8 +1,6 @@
-
 package com.example.mandatoryassignment
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -32,22 +30,31 @@ class RegisterActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     fun Register(v: View?) {
-        if (password!!.text.toString() == repeatpassword!!.text.toString()) {
-            mAuth!!.createUserWithEmailAndPassword(user!!.text.toString(), password!!.text.toString())
-                    .addOnSuccessListener(this) { authResult: AuthResult ->
-                        Log.d("banana", "createUserWIthEmail : success")
-                        Toast.makeText(this@RegisterActivity, "Successfully Created User.", Toast.LENGTH_SHORT).show()
-                        val u = authResult.user
-                        goToLogInPage(v)
-                    }.addOnFailureListener(this) { e: Exception ->
-                        Log.w("banana", "createUserWithEmail : failure", e)
-                        Toast.makeText(this@RegisterActivity, "Registration Failed.", Toast.LENGTH_SHORT).show()
-                        errorMessage!!.text = """Registration error: ${e.message}"""
-                        errorMessage!!.visibility = View.VISIBLE
-                    }
-        } else {
-            errorMessage!!.text = "Passwords do not mach"
-            errorMessage!!.visibility = View.VISIBLE
+
+        if (user!!.text.toString() == "")
+            errorMessage!!.text = "Please enter an email"
+        else {
+            if (password!!.text.toString() == "" || repeatpassword!!.text.toString() == "")
+                errorMessage!!.text = "Please enter a password"
+            else {
+                if (password!!.text.toString() == repeatpassword!!.text.toString()) {
+                    mAuth!!.createUserWithEmailAndPassword(user!!.text.toString(), password!!.text.toString())
+                            .addOnSuccessListener(this) { authResult: AuthResult ->
+                                Log.d("banana", "createUserWIthEmail : success")
+                                Toast.makeText(this@RegisterActivity, "Successfully Created User.", Toast.LENGTH_SHORT).show()
+                                val u = authResult.user
+                                goToLogInPage(v)
+                            }.addOnFailureListener(this) { e: Exception ->
+                                Log.w("banana", "createUserWithEmail : failure", e)
+                                Toast.makeText(this@RegisterActivity, "Registration Failed.", Toast.LENGTH_SHORT).show()
+                                errorMessage!!.text = """Registration error: ${e.message}"""
+                                errorMessage!!.visibility = View.VISIBLE
+                            }
+                } else {
+                    errorMessage!!.text = "Passwords do not mach"
+                    errorMessage!!.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
