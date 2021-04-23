@@ -178,7 +178,7 @@ public class TimelineActivity extends AppCompatActivity {
 
                         new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                                 .addSwipeLeftBackgroundColor(ContextCompat.getColor(TimelineActivity.this, R.color.design_default_color_error))
-                                .addSwipeLeftActionIcon(R.drawable.googleg_disabled_color_18)
+                                .addSwipeLeftActionIcon(17301564)
                                 .create()
                                 .decorate();
                         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);

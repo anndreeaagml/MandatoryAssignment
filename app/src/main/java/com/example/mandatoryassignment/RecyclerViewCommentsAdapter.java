@@ -72,7 +72,7 @@ public class RecyclerViewCommentsAdapter<T> extends RecyclerView.Adapter<Recycle
         username.setTextSize(16);
         username.setId(userId);
         username.setLayoutParams(params);
-        username.setTextColor(ContextCompat.getColor(context,R.color.userTextColor));
+        username.setTextColor(ContextCompat.getColor(context,R.color.ToolbarColor));
 
         TextView userComment = new TextView(context);
         userComment.setId(commentId);
