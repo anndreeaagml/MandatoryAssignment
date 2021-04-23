@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         String password = ((TextInputEditText) findViewById(R.id.password)).getText().toString();
         if (password.isEmpty() || username.isEmpty()) {
             error.setText("Please enter the username and password");
-            error.setVisibility(View.VISIBLE);
+            error.setTextColor(-65536);
         } else {
             mAuth.signInWithEmailAndPassword(username, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
                                 error.setText("Wrong username/password");
-                                error.setVisibility(View.VISIBLE);
+                                error.setTextColor(-65536);
                                 //updateUI(null);
                             }
 
